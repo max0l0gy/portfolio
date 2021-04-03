@@ -26,10 +26,10 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
-      - name: set environment variables
-        uses: allenevans/set-env@v1.0.0
-        with:
-          APP_DOCKER_REPO: maxmorev/portfolio-rest-api
+      - name: set environment variable APP_DOCKER_REPO
+        id: set-env-APP_DOCKER_REPO
+        run: |
+            echo "APP_DOCKER_REPO=maxmorev/portfolio-rest-api" >> $GITHUB_ENV
 
       - name: Print name for docker repository
         run: echo ${APP_DOCKER_REPO}
