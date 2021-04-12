@@ -39,7 +39,7 @@ public class Portfolio {
     @Id
     @GeneratedValue(generator = Constants.ID_GENERATOR_PORTFOLIO)
     @Column(updatable = false)
-    protected Long id;
+    private Long id;
 
     @NotBlank(message = "{validation.portfolio.name}")
     @Column(name = "name", nullable = false, length = 256)
