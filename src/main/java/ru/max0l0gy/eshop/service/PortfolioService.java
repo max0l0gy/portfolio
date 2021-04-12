@@ -65,6 +65,7 @@ public class PortfolioService {
     }
 
     private Portfolio updateAttributes(Portfolio portfolioToUpdate, PortfolioDto updateSrc) {
+        portfolioToUpdate.getImages().forEach(portfolioImage -> portfolioImage.setPortfolio(null));
         portfolioToUpdate.getImages().clear();
         portfolioToUpdate.getImages().addAll(createImageList(portfolioToUpdate, updateSrc.getImages()));
         return portfolioToUpdate
