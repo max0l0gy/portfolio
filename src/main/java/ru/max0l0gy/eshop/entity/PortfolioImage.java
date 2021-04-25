@@ -24,12 +24,12 @@ public class PortfolioImage implements Comparable<PortfolioImage> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "uri", nullable = false)
+    @Column(nullable = false)
     private String uri;
 
+    @JsonIgnore
     @ManyToOne(optional = false)
     @JoinColumn(name = "portfolio_id", referencedColumnName = "id")
-    @JsonIgnore
     private Portfolio portfolio;
 
     private Integer width;

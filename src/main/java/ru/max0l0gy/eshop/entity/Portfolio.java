@@ -42,7 +42,7 @@ public class Portfolio {
     private Long id;
 
     @NotBlank(message = "{validation.portfolio.name}")
-    @Column(name = "name", nullable = false, length = 256)
+    @Column(nullable = false, length = 256)
     private String name;
 
     @NotBlank(message = "{validation.portfolio.description}")

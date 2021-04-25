@@ -4,7 +4,7 @@ quarkus:
     username: sarah
     password: connor
     jdbc:
-      url: jdbc:h2:mem:test;DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE;MODE=PostgreSQL;INIT=CREATE SCHEMA IF NOT EXISTS "portfolio";
+      url: jdbc:h2:tcp://localhost/mem:test;DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE;MODE=PostgreSQL;INIT=RUNSCRIPT FROM 'classpath:sql/initial.sql';
   hibernate-orm:
     database:
       generation: update
