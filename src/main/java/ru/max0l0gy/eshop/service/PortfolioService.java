@@ -80,5 +80,9 @@ public class PortfolioService {
                 .map(PortfolioDto::of);
     }
 
+    @Transactional
+    public boolean delete(Long id) {
+        return portfolioRepository.deleteById(id);
+    }
 }
 
