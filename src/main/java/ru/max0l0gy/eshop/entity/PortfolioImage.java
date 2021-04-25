@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Data
 @Entity
 @Accessors(chain = true)
-@Table(name = "commodity_image")
+@Table(name = "portfolio_image")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PortfolioImage implements Comparable<PortfolioImage> {
     @Id
