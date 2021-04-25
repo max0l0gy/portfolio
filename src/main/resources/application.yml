@@ -12,5 +12,5 @@ quarkus:
       url: jdbc:h2:file:/opt/micro/h2/portfolio;DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE;MODE=PostgreSQL;INIT=CREATE SCHEMA IF NOT EXISTS "portfolio";
   hibernate-orm:
     database:
-      generation: none
+      generation: update
 
