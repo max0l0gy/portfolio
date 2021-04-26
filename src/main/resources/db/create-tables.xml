@@ -1,0 +1,76 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="create_portfolio" author="Maxim Morev">
+        <validCheckSum>ANY</validCheckSum>
+        <createTable tableName="portfolio" remarks="Portfolio table">
+
+            <!-- Business Logic Fields -->
+            <column name="id" type="bigint" remarks="">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_creation" type="date" remarks="">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(256)" remarks="">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(2048)" remarks="">
+                <constraints nullable="false"/>
+            </column>
+            <column name="short_description" type="varchar(1024)" remarks="">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="portfolio"
+                       columnNames="id"
+                       constraintName="pk_portfolio"/>
+
+    </changeSet>
+
+    <changeSet id="create_portfolio_image" author="Maxim Morev">
+        <validCheckSum>ANY</validCheckSum>
+        <createTable tableName="portfolio_image" remarks="Portfolio images table">
+            <!-- Business Logic Fields -->
+            <column name="id" type="bigint" remarks="">
+                <constraints nullable="false"/>
+            </column>
+            <column name="portfolio_id" type="bigint" remarks="">
+                <constraints nullable="false"/>
+            </column>
+            <column name="uri" type="varchar" remarks="">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image_order" type="int" remarks="">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="portfolio_image"
+                       columnNames="id"
+                       constraintName="pk_portfolio_image"/>
+    </changeSet>
+
+    <changeSet  author="Maxim Morev"  id="createSequences-portfolio">
+        <createSequence  cacheSize="5"
+                         catalogName="portfolio"
+                         cycle="true"
+                         incrementBy="1"
+                         minValue="10"
+                         ordered="true"
+                         sequenceName="SEQUENCE_PORTFOLIO"
+                         startValue="100"/>
+
+        <createSequence  cacheSize="5"
+                         catalogName="portfolio"
+                         cycle="true"
+                         incrementBy="1"
+                         minValue="10"
+                         ordered="true"
+                         sequenceName="SEQUENCE_PORTFOLIO_IMAGE"
+                         startValue="100"/>
+    </changeSet>
+
+</databaseChangeLog>

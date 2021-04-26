@@ -21,7 +21,7 @@ import javax.persistence.Table;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PortfolioImage implements Comparable<PortfolioImage> {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = Constants.ID_GENERATOR_PORTFOLIO_IMAGE)
     private Long id;
 
     @Column(nullable = false)
@@ -31,9 +31,6 @@ public class PortfolioImage implements Comparable<PortfolioImage> {
     @ManyToOne(optional = false)
     @JoinColumn(name = "portfolio_id", referencedColumnName = "id")
     private Portfolio portfolio;
-
-    private Integer width;
-    private Integer height;
 
     @Column(nullable = false, name = "image_order")
     private Short imageOrder;
