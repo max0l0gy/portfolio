@@ -8,6 +8,7 @@
         @GenericGenerator(
                 name = Constants.ID_GENERATOR_PORTFOLIO,
                 strategy = "enhanced-sequence",
+
                 parameters = {
                         @Parameter(
                                 name = "sequence_name",
@@ -19,7 +20,32 @@
                         ),
                         @Parameter(
                                 name = "increment_size",
+                                value = "5"
+                        ),
+                        @Parameter(
+                                name = "optimizer",
+                                value = "pooled-lo"
+                        ),
+                        @Parameter(
+                                name = "increment_size",
+                                value = "5"
+                        ),
+                }),
+        @GenericGenerator(
+                name = Constants.ID_GENERATOR_PORTFOLIO_IMAGE,
+                strategy = "enhanced-sequence",
+                parameters = {
+                        @Parameter(
+                                name = "sequence_name",
+                                value = Constants.ID_GENERATOR_PORTFOLIO_IMAGE_SEQUENCE_NAME
+                        ),
+                        @Parameter(
+                                name = "initial_value",
                                 value = "100"
+                        ),
+                        @Parameter(
+                                name = "increment_size",
+                                value = "5"
                         ),
                         @Parameter(
                                 name = "optimizer",

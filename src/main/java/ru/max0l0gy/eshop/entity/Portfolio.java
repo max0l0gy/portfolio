@@ -6,16 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,7 +41,7 @@ public class Portfolio {
     private String description;
 
     @NotBlank(message = "{validation.portfolio.shortDescription")
-    @Column(nullable = false, length = 1024)
+    @Column(name="short_description",nullable = false, length = 1024)
     private String shortDescription;
 
     @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true, mappedBy = "portfolio", targetEntity = PortfolioImage.class, fetch = FetchType.EAGER)

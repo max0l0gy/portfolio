@@ -30,12 +30,9 @@ class PortfolioResourceTest {
     @BeforeAll
     @SneakyThrows
     public void loadInitialData() {
-        PortfolioDto portfolioDto = MAPPER.readValue(getBody("dto/portfolio.json"), PortfolioDto.class);
-        portfolioService.persist(portfolioDto);
-        portfolioDto = MAPPER.readValue(getBody("dto/portfolio-for-delete.json"), PortfolioDto.class);
-        portfolioService.persist(portfolioDto);
-        portfolioDto = MAPPER.readValue(getBody("dto/portfolio-for-update.json"), PortfolioDto.class);
-        portfolioService.persist(portfolioDto);
+        portfolioService.persist(MAPPER.readValue(getBody("dto/portfolio.json"), PortfolioDto.class));
+        portfolioService.persist(MAPPER.readValue(getBody("dto/portfolio-for-delete.json"), PortfolioDto.class));
+        portfolioService.persist(MAPPER.readValue(getBody("dto/portfolio-for-update.json"), PortfolioDto.class));
     }
 
     @Test

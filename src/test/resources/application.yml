@@ -7,5 +7,9 @@ quarkus:
       url: jdbc:h2:tcp://localhost/mem:test;DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE;MODE=PostgreSQL;INIT=RUNSCRIPT FROM 'classpath:sql/initial.sql';
   hibernate-orm:
     database:
-      generation: update
-
+      generation: none
+      default-schema: PORTFOLIO
+  liquibase:
+    migrate-at-start: true
+    change-log: db/changeLog.xml
+    default-schema-name: PORTFOLIO
