@@ -32,6 +32,9 @@ spec:
       containers:
         - name: eshop
           image: maxmorev/portfolio-rest-api:latest
+          volumeMounts:
+            - name: h2-storage
+              mountPath: /opt/micro/h2
           ports:
             - containerPort: 8080
               name: quarkus
