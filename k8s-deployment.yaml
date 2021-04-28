@@ -29,6 +29,11 @@ spec:
       labels:
         app: portfolio-rest-api
     spec:
+      terminationGracePeriodSeconds: 10
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 0
+        fsGroup: 0
       containers:
         - name: eshop
           image: maxmorev/portfolio-rest-api:latest
