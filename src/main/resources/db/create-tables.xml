@@ -2,9 +2,9 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
 
-    <changeSet id="create_portfolio" author="Maxim Morev">
+<changeSet id="create_portfolio" author="Maxim Morev">
         <validCheckSum>ANY</validCheckSum>
         <createTable tableName="portfolio" remarks="Portfolio table">
 
@@ -54,23 +54,10 @@
     </changeSet>
 
     <changeSet  author="Maxim Morev"  id="createSequences-portfolio">
-        <createSequence  cacheSize="5"
-                         catalogName="portfolio"
-                         cycle="true"
-                         incrementBy="1"
-                         minValue="10"
-                         ordered="true"
-                         sequenceName="SEQUENCE_PORTFOLIO"
-                         startValue="100"/>
-
-        <createSequence  cacheSize="5"
-                         catalogName="portfolio"
-                         cycle="true"
-                         incrementBy="1"
-                         minValue="10"
-                         ordered="true"
-                         sequenceName="SEQUENCE_PORTFOLIO_IMAGE"
-                         startValue="100"/>
+        <sql>
+            CREATE  SEQUENCE IF NOT EXISTS PORTFOLIO.SEQUENCE_PORTFOLIO        START WITH 149 CACHE 100 INCREMENT BY 1 MINVALUE  99 NO CYCLE;
+            CREATE  SEQUENCE IF NOT EXISTS PORTFOLIO.SEQUENCE_PORTFOLIO_IMAGE  START WITH 149 CACHE 100 INCREMENT BY 1 MINVALUE  99 NO CYCLE;
+        </sql>
     </changeSet>
 
 </databaseChangeLog>

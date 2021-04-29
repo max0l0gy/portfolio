@@ -41,8 +41,7 @@ class PortfolioResourceTest {
                 .when()
                 .get("/api/v1/portfolios")
                 .then()
-                .log()
-                .ifValidationFails(LogDetail.BODY)
+                .log().all()
                 .statusCode(200)
                 .body(
                         "status", is("success"),

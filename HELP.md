@@ -14,3 +14,10 @@ echo $DOCKER_ACCESS_TOKEN | docker login -u maxmorev --password-stdin
 docker build -t docker.io/maxmorev/portfolio-rest-api:test .
 docker push docker.io/maxmorev/portfolio-rest-api:test
 
+
+
+docker run --rm -p 5432:5432 \
+-e POSTGRES_PASSWORD=postgres \
+-e POSTGRES_PASSWORD=postgres \
+--name postgres \
+postgres 

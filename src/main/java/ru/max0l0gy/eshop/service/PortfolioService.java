@@ -3,6 +3,7 @@ package ru.max0l0gy.eshop.service;
 import ru.max0l0gy.eshop.dto.PortfolioDto;
 import ru.max0l0gy.eshop.entity.Portfolio;
 import ru.max0l0gy.eshop.entity.PortfolioImage;
+import ru.max0l0gy.eshop.repository.PortfolioImageRepository;
 import ru.max0l0gy.eshop.repository.PortfolioRepository;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -17,6 +18,8 @@ import java.util.stream.Collectors;
 public class PortfolioService {
     @Inject
     PortfolioRepository portfolioRepository;
+    @Inject
+    PortfolioImageRepository portfolioImageRepository;
 
     public List<PortfolioDto> list() {
         return portfolioRepository.listAll()
@@ -31,6 +34,7 @@ public class PortfolioService {
                 .setDescription(portfolioToSave.getDescription())
                 .setName(portfolioToSave.getName())
                 .setShortDescription(portfolioToSave.getShortDescription());
+
         portfolioRepository.persist(
                 portfolio.setImages(createImageList(portfolio, portfolioToSave.getImages()))
         );
@@ -65,7 +69,9 @@ public class PortfolioService {
     }
 
     private Portfolio updateAttributes(Portfolio portfolioToUpdate, PortfolioDto updateSrc) {
-        portfolioToUpdate.getImages().forEach(portfolioImage -> portfolioImage.setPortfolio(null));
+        portfolioToUpdate.getImages().forEach(portfolioImage -> {
+            portfolioImage.setPortfolio(null);
+        });
         portfolioToUpdate.getImages().clear();
         portfolioToUpdate.getImages().addAll(createImageList(portfolioToUpdate, updateSrc.getImages()));
         return portfolioToUpdate
