@@ -1,10 +1,14 @@
 quarkus:
   datasource:
-    db-kind: H2
+    db-kind: h2
     username: sarah
     password: connor
     jdbc:
       url: jdbc:h2:tcp://localhost/mem:test;DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE;MODE=PostgreSQL;INIT=RUNSCRIPT FROM 'classpath:sql/initial.sql';
+#    username: postgres
+#    password: postgres
+#    jdbc:
+#      url: jdbc:postgresql://localhost:5432/postgres
   hibernate-orm:
     database:
       generation: none
