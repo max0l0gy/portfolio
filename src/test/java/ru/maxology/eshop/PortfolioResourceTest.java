@@ -14,6 +14,8 @@ import ru.max0l0gy.eshop.service.PortfolioService;
 
 import javax.inject.Inject;
 
+import java.util.List;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.*;
 import static ru.maxology.eshop.TestUtil.MAPPER;
@@ -36,7 +38,7 @@ class PortfolioResourceTest {
     }
 
     @Test
-    public void list() {
+    void list() {
         given()
                 .when()
                 .get("/api/v1/portfolios")
@@ -46,6 +48,7 @@ class PortfolioResourceTest {
                 .body(
                         "status", is("success"),
                         "data", notNullValue(),
+                        "data", isA(List.class),
                         "data[0].name", is("Portfolio1"),
                         "data[0].description", is("Description for portfolio"),
                         "data[0].shortDescription", is("Short description"),
@@ -55,7 +58,7 @@ class PortfolioResourceTest {
     }
 
     @Test
-    public void find() {
+    void find() {
         given()
                 .when()
                 .get("/api/v1/portfolios/100")
@@ -74,10 +77,10 @@ class PortfolioResourceTest {
     }
 
     @Test
-    public void findFail() {
+    void findFail() {
         given()
                 .when()
-                .get("/api/v1/portfolios/104")
+                .get("/api/v1/portfolios/144")
                 .then()
                 .log()
                 .ifValidationFails(LogDetail.BODY)
@@ -91,7 +94,7 @@ class PortfolioResourceTest {
 
     @Test
     @SneakyThrows
-    public void delete() {
+    void delete() {
         given()
                 .when()
                 .delete("/api/v1/portfolios/101")
@@ -108,7 +111,7 @@ class PortfolioResourceTest {
 
     @Test
     @SneakyThrows
-    public void add() {
+    void add() {
         given()
                 .body(getBody("dto/portfolio-for-delete.json"))
                 .contentType("application/json")
@@ -120,7 +123,7 @@ class PortfolioResourceTest {
                 .statusCode(200)
                 .body(
                         "status", is("success"),
-                        "data.id", is(103),
+                        "data.id", notNullValue(),
                         "data.name", is("Portfolio2"),
                         "data.description", is("Description for portfolio 2"),
                         "data.shortDescription", is("Short description 2"),
@@ -128,12 +131,11 @@ class PortfolioResourceTest {
                 )
         ;
 
-        Assertions.assertTrue(portfolioService.delete(103L));
     }
 
     @Test
     @SneakyThrows
-    public void update() {
+    void update() {
         Assertions.assertTrue(portfolioService.find(102L).isPresent());
         given()
                 .body(getBody("dto/portfolio-for-update-attributes.json"))
@@ -153,6 +155,30 @@ class PortfolioResourceTest {
                         "data.images[0]", is("https://mir-s3-cdn-cf.behance.net/project_modules/1400/ce7f05117440163.6075ddf3a4768.jpg")
                 )
         ;
+    }
+
+    @Test
+    @SneakyThrows
+    void addPortfolioWithLongDescription() {
+        given()
+                .body(getBody("dto/portfolio-for-delete-long-description.json"))
+                .contentType("application/json")
+                .when()
+                .post("/api/v1/portfolios")
+                .then()
+                .log()
+                .ifValidationFails(LogDetail.BODY)
+                .statusCode(200)
+                .body(
+                        "status", is("success"),
+                        "data.id", notNullValue(),
+                        "data.name", is("Portfolio Long Description"),
+                        "data.description", is("social media project, 2017- now\nLink - https://www.instagram.com/gucciholes/ \n\nREVIEW:\nFor several years I am working on my project which explores increasingly,\nunhealthy relationship of women with Instagram and dubious notions of\n‘truth’ online. I illustrate this through creation of fiction Instagram\naccount of woman who arrived in Moscow from small town in attempt to\nachieve some sort of recognition and material lifestyle which is promoted\nby society. I show my personage as stereotypical, simplified woman that\nother can consume as an object. I documenting the process of her growing\nself-obsession and consumerist values via photography.\n\nThrough constant self-advertising and change in appearance my\ncharacter gets more commercial benefits in area of goods and services,\nbut during this process, with increasing of carnal pleasures she loss of\nhumanity. That is why I use mask which grotesquely present her as a doll.\nMasks also, had a long history and were used by prostitutes in time of\ncarnival to have opportunity to connect with men from high society. In\nthis way, I consider the concept of carnavalisation according to M.\nBakhtin, through modernising of carnival notions in social net.\n\nThe female body is one of the main manifestations of the carnavalisation\nconcept today, as a metaphor for the material and festive element.\nBased on analysis of famous social pages of women and how they\nrepresent themselves, I create a visual myth of status and fashionable\nwoman for my character.\n\nCarnival and commodity relationship between people go through\nnon-stop spectacle, based on images promoted fun and easy lifestyle,\naggressive attraction and sexuality which are profitable to economy. My\nproject highlights that women as tools and as victims in such realities. It\ncould also illustrates that people today are surrounded by myth and\nthey ready to be cheated in internet to achieve some sort of voyeristic\npleasures. I critique these notions through conscious objectification of\nmy character, using the same ways of self-representation, but in\ntheatrical, parody way. So, my personage’s recognition could prove\ndistorted values and standards of beauty imposed in our society, where\nfreak or an unreal character can become an idol for people.\n"),
+                        "data.shortDescription", is("social media project, 2017- now"),
+                        "data.images[0]", is("https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/6ac307117440163.6075ddf3a2bfa.jpg")
+                )
+        ;
+
     }
 
 }

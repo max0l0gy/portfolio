@@ -59,7 +59,7 @@ public class Portfolio {
     private String name;
 
     @NotBlank(message = "{validation.portfolio.description}")
-    @Column(nullable = false, length = 2048)
+    @Column(nullable = false)
     private String description;
 
     @NotBlank(message = "{validation.portfolio.shortDescription")

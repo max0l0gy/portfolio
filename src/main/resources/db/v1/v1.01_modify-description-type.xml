@@ -4,7 +4,19 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
     https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
 
-    <include file="db/create-tables.xml"/>
-    <include file="db/v1/v1.xml"/>
+<changeSet id="modify_description_type" author="Maxim Morev" runOrder="last">
+
+    <preConditions onFail="MARK_RAN">
+        <not>
+            <tableExists tableName="PORTFOLIO.PORTFOLIO"/>
+        </not>
+    </preConditions>
+
+    <sql>
+        ALTER TABLE PORTFOLIO.PORTFOLIO
+        ALTER COLUMN description TEXT;
+    </sql>
+
+</changeSet>
 
 </databaseChangeLog>

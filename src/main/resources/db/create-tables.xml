@@ -4,8 +4,14 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
     https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
 
-<changeSet id="create_portfolio" author="Maxim Morev">
-        <validCheckSum>ANY</validCheckSum>
+    <changeSet id="create_portfolio" author="Maxim Morev">
+
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="portfolio"/>
+            </not>
+        </preConditions>
+
         <createTable tableName="portfolio" remarks="Portfolio table">
 
             <!-- Business Logic Fields -->
@@ -32,7 +38,13 @@
     </changeSet>
 
     <changeSet id="create_portfolio_image" author="Maxim Morev">
-        <validCheckSum>ANY</validCheckSum>
+
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="portfolio_image"/>
+            </not>
+        </preConditions>
+
         <createTable tableName="portfolio_image" remarks="Portfolio images table">
             <!-- Business Logic Fields -->
             <column name="id" type="bigint" remarks="">
@@ -54,6 +66,9 @@
     </changeSet>
 
     <changeSet  author="Maxim Morev"  id="createSequences-portfolio">
+        <preConditions onFail="WARN">
+            <sequenceExists sequenceName="PORTFOLIO.SEQUENCE_PORTFOLIO" />
+        </preConditions>
         <sql>
             CREATE  SEQUENCE IF NOT EXISTS PORTFOLIO.SEQUENCE_PORTFOLIO        START WITH 149 CACHE 100 INCREMENT BY 1 MINVALUE  99 NO CYCLE;
             CREATE  SEQUENCE IF NOT EXISTS PORTFOLIO.SEQUENCE_PORTFOLIO_IMAGE  START WITH 149 CACHE 100 INCREMENT BY 1 MINVALUE  99 NO CYCLE;
