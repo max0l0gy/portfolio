@@ -65,13 +65,17 @@
                        constraintName="pk_portfolio_image"/>
     </changeSet>
 
-    <changeSet  author="Maxim Morev"  id="createSequences-portfolio">
+    <changeSet author="Maxim Morev" id="createSequences-portfolio">
         <preConditions onFail="WARN">
-            <sequenceExists sequenceName="PORTFOLIO.SEQUENCE_PORTFOLIO" />
+            <not>
+                <sequenceExists sequenceName="PORTFOLIO.SEQUENCE_PORTFOLIO"/>
+            </not>
         </preConditions>
         <sql>
-            CREATE  SEQUENCE IF NOT EXISTS PORTFOLIO.SEQUENCE_PORTFOLIO        START WITH 149 CACHE 100 INCREMENT BY 1 MINVALUE  99 NO CYCLE;
-            CREATE  SEQUENCE IF NOT EXISTS PORTFOLIO.SEQUENCE_PORTFOLIO_IMAGE  START WITH 149 CACHE 100 INCREMENT BY 1 MINVALUE  99 NO CYCLE;
+            CREATE SEQUENCE IF NOT EXISTS PORTFOLIO.SEQUENCE_PORTFOLIO START WITH 149 CACHE 100 INCREMENT BY 1 MINVALUE
+            99 NO CYCLE;
+            CREATE SEQUENCE IF NOT EXISTS PORTFOLIO.SEQUENCE_PORTFOLIO_IMAGE START WITH 149 CACHE 100 INCREMENT BY 1
+            MINVALUE 99 NO CYCLE;
         </sql>
     </changeSet>
 
