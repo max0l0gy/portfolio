@@ -4,7 +4,6 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
     https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
 
-    <include file="db/create-tables.xml"/>
-    <include file="db/v1/v1.xml"/>
+    <include file="db/v1/v1.01_modify-description-type.xml"/>
 
 </databaseChangeLog>
