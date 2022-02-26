@@ -11,7 +11,7 @@ spec:
     app: portfolio-rest-api
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   namespace: eshop
   name: portfolio-rest-api-deployment
@@ -21,8 +21,7 @@ spec:
   selector:
     matchLabels:
       app: portfolio-rest-api
-  strategy:
-    type: Recreate
+  serviceName: "portfolio-rest-api"
   replicas: 1
   template:
     metadata:
@@ -36,9 +35,9 @@ spec:
         fsGroup: 0
       containers:
         - name: eshop
-          image: maxmorev/portfolio-rest-api:latest
+          image: maxmorev/portfolio-rest-api:0.0.24
           volumeMounts:
-            - name: h2-storage
+            - name: h2-storage-portfolio
               mountPath: /opt/micro/h2
           ports:
             - containerPort: 8080
@@ -66,7 +65,12 @@ spec:
             timeoutSeconds: 2
             periodSeconds: 8
             failureThreshold: 1
-      volumes:
-        - name: h2-storage
-          persistentVolumeClaim:
-            claimName: pvc-portfolio
+  volumeClaimTemplates:
+    - metadata:
+        name: h2-storage-portfolio
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: "standard"
+        resources:
+          requests:
+            storage: 1Gi
